@@ -1,0 +1,1 @@
+web: gunicorn MEDIX.wsgi --log-file -
