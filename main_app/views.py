@@ -401,4 +401,9 @@ def orders(request):
         mail_notif(email=em,message=message)
         return redirect("/orders")
     return render(request,'Orders.html',{'order':order_list})
-    
+
+#-----------------------------------------------------------------------------------------------
+#View for index page
+#-----------------------------------------------------------------------------------------------
+def index_page(request):
+    return render(request,"Index.html",{'user_count':len(Normal_User.objects.all()),'hospital_count':len(Hospital.objects.all()),'vendor_count':len(Vendor.objects.all())})
