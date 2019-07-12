@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import SearchForm,AddMedicineForm,UpdateForm
 from django.core.mail import send_mail
 from static.fusioncharts import FusionCharts
+import matplotlib.pyplot as plt
 #-----------------------------------------------------------------------------------------------
 #Function For Logout
 #-----------------------------------------------------------------------------------------------
@@ -418,32 +419,14 @@ def index_page(request):
 #-----------------------------------------------------------------------------------------------
 #View for vendor dashboard
 #-----------------------------------------------------------------------------------------------
+################################################################################################
+#WARNING: THIS FUNCTION IS INCOMPLETE AND IS FOR GRAPHING. DO NOT CALL THIS FUNCTION
+################################################################################################
 @login_required(login_url="v_login")
 def ven_dashboard(request):
-    vend=None
-    for v in Vendor.objects.all():
-        if v.auth_user==request.user:
-            vend=v
-    chartObj = FusionCharts( 'pie2d', 'ex1', '600', '400', 'chart-1', 'json', """{
-  "chart": {
-    "caption": "Market Share of Web Servers",
-    "plottooltext": "<b>$percentValue</b> of web servers run on $label servers",
-    "showlegend": "1",
-    "showpercentvalues": "1",
-    "legendposition": "bottom",
-    "usedataplotcolorforlabels": "1",
-    "theme": "fusion"
-  },
-  "data": [
-    {
-      "label": "Accepted",
-      "value": "{}"
-    },
-    {
-      "label": "Rejected",
-      "value": "{}"
-    },
-    
-  ]
-}""".format(str(vend.accepted),str(vend.total-vend.accepted)))
-    return render(request, 'vendor_dashboard.html', {'output': chartObj.render()})
+    x=[100,200]
+    a=plt.pie(x)
+    a.savefig('books_read.png')
+    #chartObj = FusionCharts( 'pie2d', 'ex1', '600', '400', 'chart-1', 'json',mystr)
+    print('chartObj',chartObj)
+    return render(request, 'vendor_dashboard.html')

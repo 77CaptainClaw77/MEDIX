@@ -25,7 +25,7 @@ SECRET_KEY = '(c=iq-c#lgr3f&6ezyrg+23f1*^_!(#h7qnb2nfndg-u8rsy#('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','intense-hollows-54183.herokuapp.com',]
+ALLOWED_HOSTS = ['127.0.0.1','intense-hollows-54183.herokuapp.com','0.0.0.0']
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
