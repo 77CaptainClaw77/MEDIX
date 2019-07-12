@@ -6,6 +6,23 @@
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
 {% endblock %}
 {% block main_content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">MEDIX</a>
+  <ul class="navbar-nav mr-auto">
+  <li class="nav-item active">
+        <a class="nav-link" href="#">Dashboard <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/user_hospital_login">User<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/user_hospital_login">Hospital<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/vendor_login">Vendor<span class="sr-only">(current)</span></a>
+      </li>
+  </ul>
+</nav>
 <div class="container">
 <h1><center>Dashboard</center></h1> <br> <br>
     <table class="table table-dark">
