@@ -399,5 +399,6 @@ def orders(request):
         else:
             message+=" has been rejected"
         mail_notif(email=em,message=message)
+        return redirect("/orders")
     return render(request,'Orders.html',{'order':order_list})
     
