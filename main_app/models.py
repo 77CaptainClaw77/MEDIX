@@ -26,6 +26,8 @@ class Vendor(models.Model):
     # from users. Otherwise his account is not activated and although he can add products the user
     #cannot view them.
     auth_user=models.OneToOneField(User,on_delete=models.CASCADE,null=True)
+    accepted=models.IntegerField(verbose_name="Orders Accepted",default=0)
+    total=models.IntegerField(verbose_name="Total Orders",default=0)
   
 #--------------------------------------------------------------------------------------------
 #Medicine Model : Model for information about medicine
