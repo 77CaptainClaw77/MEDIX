@@ -191,7 +191,7 @@ def MedicineSearchView(request):
                         final_set.append(res)
             print(final_set)        
             return render(request,'search_page.html',{'form':form,'results':final_set})
-    return render(request,'search_page.html',{'form':form})     
+    return render(request,'search_page.html',{'form':form,'results':Medicine.objects.all()})     
 #-----------------------------------------------------------------------------------------------
 #View for Vendor's Inventory
 #-----------------------------------------------------------------------------------------------
@@ -406,4 +406,4 @@ def orders(request):
 #View for index page
 #-----------------------------------------------------------------------------------------------
 def index_page(request):
-    return render(request,"Index.html",{'user_count':len(Normal_User.objects.all()),'hospital_count':len(Hospital.objects.all()),'vendor_count':len(Vendor.objects.all())})
+    return render(request,"Index.html",{'user_count':len(Normal_User.objects.all()),'hospital_count':len(Hospital   .objects.all()),'vendor_count':len(Vendor.objects.all())})
