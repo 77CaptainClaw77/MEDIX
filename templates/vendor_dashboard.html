@@ -1,0 +1,16 @@
+{% extends "base/basic_layout.html" %}
+{% load static %}
+{% block head %}
+<script
+      type="text/javascript"
+      src="{% static 'js/fusioncharts.js' %}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{% static 'js/themes/fusioncharts.theme.fint.js' %}"
+    ></script>
+{% endblock head %}
+{% block main_content %}
+    <div id="chart-1"></div>
+        {{ output|safe }}
+{% endblock main_content %}

@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from main_app.views import register_new_user,register_new_hospital,register_new_vendor,user_and_hospital_login,vendor_login,all_logout
 from main_app.views import MedicineSearchView,VendorsView,vendor_add_medicine,vendor_delete_medicine,vendor_update_medicine
-from main_app.views import add_to_cart,view_cart,orders,index_page
+from main_app.views import add_to_cart,view_cart,orders,index_page,ven_dashboard
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('normal_user_register/', register_new_user),
@@ -35,4 +35,5 @@ urlpatterns = [
     path('view_cart/',view_cart),
     path('orders/',orders),
     path('',index_page),
+    path('/vendor_dashboard',ven_dashboard),
 ]

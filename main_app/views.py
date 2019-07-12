@@ -7,6 +7,7 @@ from .models import Normal_User,Hospital,Vendor,Hospital_To_Vendor_Order,User_To
 from django.contrib.auth.decorators import login_required
 from .forms import SearchForm,AddMedicineForm,UpdateForm
 from django.core.mail import send_mail
+from static.fusioncharts import FusionCharts
 #-----------------------------------------------------------------------------------------------
 #Function For Logout
 #-----------------------------------------------------------------------------------------------
@@ -294,6 +295,8 @@ def view_cart(request):
                         h_user=h
                 ord.hospital=h_user
                 ven=Vendor.objects.get(vendor_name=it.vendor_name)
+                ven.total+=1
+                ven.save()
                 ord.vendor=ven
                 ord.high_priority=True
                 ord.save()
@@ -311,6 +314,8 @@ def view_cart(request):
                         n_user=use
                 ord.user=n_user
                 ven=Vendor.objects.get(vendor_name=it.vendor_name)
+                ven.total+=1
+                ven.save()
                 ord.vendor=ven
                 ord.save()
                 Items.objects.all().delete()
@@ -396,6 +401,8 @@ def orders(request):
                             med.delete()                    
                         break
             message+=" has been accepted"
+            vend.accepted+=1
+            vend.save()
         else:
             message+=" has been rejected"
         mail_notif(email=em,message=message)
@@ -407,3 +414,36 @@ def orders(request):
 #-----------------------------------------------------------------------------------------------
 def index_page(request):
     return render(request,"Index.html",{'user_count':len(Normal_User.objects.all()),'hospital_count':len(Hospital   .objects.all()),'vendor_count':len(Vendor.objects.all())})
+
+#-----------------------------------------------------------------------------------------------
+#View for vendor dashboard
+#-----------------------------------------------------------------------------------------------
+@login_required(login_url="v_login")
+def ven_dashboard(request):
+    vend=None
+    for v in Vendor.objects.all():
+        if v.auth_user==request.user:
+            vend=v
+    chartObj = FusionCharts( 'pie2d', 'ex1', '600', '400', 'chart-1', 'json', """{
+  "chart": {
+    "caption": "Market Share of Web Servers",
+    "plottooltext": "<b>$percentValue</b> of web servers run on $label servers",
+    "showlegend": "1",
+    "showpercentvalues": "1",
+    "legendposition": "bottom",
+    "usedataplotcolorforlabels": "1",
+    "theme": "fusion"
+  },
+  "data": [
+    {
+      "label": "Accepted",
+      "value": "{}"
+    },
+    {
+      "label": "Rejected",
+      "value": "{}"
+    },
+    
+  ]
+}""".format(str(vend.accepted),str(vend.total-vend.accepted)))
+    return render(request, 'vendor_dashboard.html', {'output': chartObj.render()})
